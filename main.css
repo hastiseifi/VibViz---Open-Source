@@ -1,0 +1,277 @@
+@media (min-width: 1000px){
+body {
+  font: 10px Helvetica;
+  /*color:#6B6B6B;*/
+}
+
+/* setup view grids & paddings */
+.offset-view{
+  position:fixed;
+}
+.placeholder{
+  border-bottom:3px solid #696969;
+  margin-top:10px;
+  padding-bottom:20px;
+  margin-bottom:10px;
+}
+
+#mixedView{
+  overflow:hidden;
+}
+
+#physicalView{
+  border-right:3px solid #696969;
+  overflow:hidden;
+}
+
+#emotionalView{
+ 
+ overflow:hidden;
+}
+
+/* label-related */
+
+.coord-label{
+  font-size:12px;
+  color:#6B6B6B;
+}
+.clear-button {
+ font-size: 14px;
+ text-decoration: u gnderline;
+ color:#6B6B6B;
+}
+.filter-label{
+  color:black;
+  margin-bottom:0px;
+}
+.filter-label2{
+  color:black;
+  margin-top:0px;
+  padding-left:5%;
+  font-weight:bold;
+}
+.reset-button{
+  text-align:end;
+  text-font:14px;
+  margin-left: 10px;
+}
+.list_item{
+/*  padding-left:10px;
+  padding-right:10px;*/
+  font-size:15px;
+}
+.list_item.highlight{
+	 border:3px solid #006666;
+}
+.list_item.marked{
+	 border:3px solid yellow;
+}
+th{
+  font-weight:bold;
+  font-size:16px;
+}
+table { 
+    table-layout:fixed; 
+    word-wrap:normal;
+}
+td.png{
+  position:absolute;
+  left:50%;
+  top:50%;
+}
+
+table tr {
+    height: 20px;
+}
+
+.metaphor_text{
+  padding-left:10px;
+}
+
+.usage_text{
+  padding-right:10px;
+}
+
+/* within each taxonomy view */
+.filter{
+/*  margin-right:10px
+  padding-right:10px;
+  padding-left:5px;*/
+  padding-top:10px;
+  font-size: 16px;
+  line-height: 24px;
+  color:black;
+}
+.coord {
+  height:100%;
+  padding-left:10px;
+  padding-right:5px;
+  display:inline-block;
+  font:20px;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #6B6B6B;
+  stroke-wide:1.5px;
+  shape-rendering: crispEdges;
+}
+/*.tagcloud-outline {
+  border: 3px solid #F2F2F2;
+  border-radius: 15px;
+}*/
+#metaphor-filters{
+  padding-left:10px;
+  overflow:hidden;
+  height:500px;/* figure out the problem and change later*/
+}
+
+#usage-filters{
+
+}
+
+#list-view{
+ /* border: 1px solid #b7b7b7;*/
+ overflow-y:scroll;
+  height:100%;
+}
+
+#glyph-list{
+ /* overflow-y:scroll;
+  height:100%;*/
+}
+#emotion-tagcloud{
+ margin:20px 10px 50px 10px;
+ height:45%;
+}
+#usage-tagcloud{ /*subject to change*/
+  margin:40px 0px 50px 10px;
+}
+
+#metaphor-tagcloud{ /*subject to change*/
+  margin:40px 10px 50px 10px;
+
+}
+/* on-select data-point */
+.physical_dot{
+  stroke:none;
+  fill-opacity:0.45;
+  display:null;
+}
+.physical_dot.mouseover{
+  stroke:none;
+  fill-opacity:1;
+  cursor:pointer;
+  display:null;
+}
+.physical_dot.highlight{
+  stroke:none;
+  fill-opacity:1;
+  display:null;
+}
+.physical_dot.marked{
+	stroke:yellow;
+	stroke-width:2px;
+}
+
+.emotion_dot{
+  fill:#9DBCBC;
+  fill-opacity:0.8;
+  display:null;
+}
+.emotion_dot.marked{
+	stroke:yellow;
+	stroke-width:2px;
+}
+.emotion_dot.highlight{
+  fill:#006666;
+  fill-opacity:1;
+  display:null;
+}
+.emotion_dot.mouseover{
+  fill:#006666;
+  fill-opacity:1;
+  cursor:pointer;
+  display:null;
+}
+.selected{
+  fill:#006666;
+}
+.list_item{
+  cursor:pointer;
+  display:null;
+}
+.tempo.filter-checkbox{
+   display:none;
+}
+.filtered{/* no-display for brushing */
+  display:none;
+}
+.filter2{ /* no-display for actual filters*/
+  display:none;
+}
+.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 62px;
+  height: 42px;
+  font: 12px sans-serif;
+  border: 1px solid;
+  border-radius: 1px;
+  pointer-events: none;
+  background-color:white;
+  opacity:0;
+}
+.tooltip.mouseover{
+  opacity:1;
+}
+.brush .extent {
+  stroke: #fff;
+  opacity: .125;
+  shape-rendering: crispEdges;
+}
+/* slider-related */
+.slider{
+  padding-top:10px;
+  padding-bottom:30px;
+}
+.disabled-slider{
+  pointer-events:none;
+}
+.disabled-slider > .d3-slider > .d3-slider-range {
+  border:0px;
+  background: #eee;
+  background: linear-gradient(to bottom, #eee 0%, #ddd 100%);
+}
+.disabled-slider > .d3-slider > .d3-slider-axis{
+ color:lightgrey; 
+}
+/*css info for treemap */
+
+.node {
+  border: solid 5px white;
+  border-radius: 25px;
+  font: 16px verdana, sans-serif;
+  line-height: 12px;
+  overflow: hidden;
+  line-height: 200%;
+}
+
+.customTag{
+	display:inline-block;
+	height: 40px;
+	background-color:#EFFBF8;/*white;*//*#FAFAFA;*/
+	border: solid 3px white;
+	border-radius: 10px;
+	font: verdana, sans-serif;
+	line-height: 40px;/* the same size as the height*/
+  	overflow: hidden;
+  	text-align: center;
+}
+.padding{
+	margin-top:10px
+}
+
+
+}

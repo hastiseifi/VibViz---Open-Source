@@ -1,0 +1,205 @@
+<!--
+Copyright (c) <2015>, <Hasti Seifi, Karon E. MacLean , Kailun Zhang from SPIN lab, University of British Columbia>
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of the SPIN lab or UBC nor the
+      names of its contributors may be used to endorse or promote products
+      derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL COPYRIGHT HOLDERS (Hasti Seifi, Karon E. MacLean, Kailun Zhang)
+BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,OR CONSEQUENTIAL
+DAMAGES(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+!-->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>VibViz</title>
+
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+   	<link rel="stylesheet" href="d3/d3.slider.css">
+   	<link rel="stylesheet" href="main.css">
+   	<link rel="stylesheet" href="search.css">
+</head>
+<body>
+	<!-- main view-->
+	<div class="container-fluid">
+	    <div class="row">
+	   		<div class="col-md-5" id="physicalSection">
+	   			<!-- physical taxonomy-->
+   				<div class="row placeholder" id="physicalView">
+	   				  <div class="col-sm-9 col-md-9 coord" id = "physical-coord">
+	   				  	<h3 class = "view-label" style="font-weight:bold">Physical View</h3>
+	   				  </div>
+	   				  <div class="col-sm-3 col-md-3 filter" id = "physical-filter">
+	   				    <div class="col-md-12" id = "tempo">
+	   				        <h4 class="filter-label" style="font-weight:bold">Tempo</h4>
+	   				        <div id = "tempo-checkbox">
+	   				          <input class='tempo filter-checkbox' id ="no-rhythm" type="checkbox" value="none (no rhythm)" checked="true"></input><br/>
+	   				          <input class='tempo filter-checkbox' type="checkbox" value="1" checked="true"></input>
+	   				        </div>
+	   				        <div id="tempo-slider" class="slider"></div>
+	   				    </div>
+	   				    <div class="col-md-12" id = "note-length">
+	   				      <h4 class="filter-label" style="padding-top:15%;font-weight:bold">Rhythm Structure</h4>
+	   				  	  <input class='structure'  type="checkbox" value="long note rhythm" checked="true" > <text style = "color:#ff7f0e; font-weight:bold;">Long note</text></input><br/>
+	   				      <input class='structure'  type="checkbox" value="medium note rhythm" checked="true"> <text style = "color:#2ca02c; font-weight:bold">Medium note</text></input><br/>
+	   				      <input class='structure'  type="checkbox" value="short note rhythm" checked="true"> <text style = "color:#1f77b4; font-weight:bold">Short note</text></input><br/>
+	   				      <input class='structure'  type="checkbox" value="varied rhythm" checked="true"> <text style = "color:#9467bd; font-weight:bold">Varied rhythm</text></input><br/>
+	   				      <input class='structure'  type="checkbox" value="constant" checked="true"> <text style = "color:#d62728; font-weight:bold">Constant</text></input><br/>
+	   				  	</div>
+	   				  </div>
+   				</div>
+	   		</div>
+	   		<div class="col-md-7 col-md-offset-5 offset-view">
+
+	   			<!-- emotional taxonomy-->
+	   			<div class="row placeholder" id="emotionalView">
+   			   		<div class="col-sm-6 col-md-6 coord" id = "emotion-coord">
+   			   			<h3 class = "view-label" style="font-weight:bold">Sensory &amp; Emotional View</h3>
+   			   		</div>
+
+   			   		<div class="col-sm-6 col-md-6 filter" id = "emotion-filters">
+						<div id="rough">
+   			   				<h4 class="filter-label" style="font-weight:bold">Roughness</h4>
+   			   				<div class="slider" id = "rough-slider"></div>
+   			   			</div>
+   			   			<div class="padding"></div>
+	   			   			<div class="col-md-7"><h5 class="filter-label">Emotion Tags</h5></div>
+	   			   			<input type="text" id="emotion_searchbox" class="col-md-5" placeholder="Search tags"/>
+
+   			   			<div id = "emotion-tagcloud" class="col-md-12"></div>
+
+   			   		</div>
+	   			</div>
+	   		</div>
+	  	</div>
+		<div class="row offset-view col-md-12" id = "mixedView">
+			<h3 class = "view-label" style="padding-left:35%; font-weight:bold">Metaphor &amp; Usage Example View</h3>
+
+		    <!-- metaphor filter-->
+		    <div id = "metaphor-filters" class="col-md-3 filter" >
+		    	<div class="col-md-7"><h4 class="filter-label2">Metaphor Filters</h4></div>
+		    	<input type="text" id="metaphor_searchbox" class="col-md-5" placeholder="Search tags"/>
+		    	<div id="metaphor-tagcloud"></div>
+		    </div>
+		   	<!-- metaphor/usage shared view-->
+		    <div class="col-md-6 col-md-offset-3 offset-view" id = "list-view">
+		   		<div id="glyph-list"></div>
+		   	</div>
+	   		<!-- usage example taxonomy-->
+	   		<div id="usage-filters" class="col-md-3 col-md-offset-9 offset-view filter">
+				<div class="col-md-7"><h4 class="filter-label2">Usage Example Filters</h4></div>
+	   			<input type="text" id="usage_searchbox" class="col-md-5" placeholder="Search tags"/>
+	   			<div id = "usage-tagcloud"></div>
+	   		</div>
+
+	  	</div>
+	</div>
+
+
+	<!-- detailed card view -->
+	<div class="modal fade" id="cardViewModal" tabindex="-1" role="dialog" aria-labelledby="cardView" aria-hidden="true" data-backdrop="false">
+	   <div class="modal-dialog">
+	       <div class="modal-content">
+	           <div class="modal-header">
+	           		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	           		<h4></h4>
+	           </div>
+	           <div class="modal-body">
+  	                <div class="headbar col-md-12">
+					   <div></div>
+				    </div>
+	                <div class="container-fluid">
+	           	        <div class=""><img id="glyph" src="" width="50%" height="auto"></div>
+						<div><h5>Vibration properties</h5></div>
+						<div class="col-sm-12">
+						<h5 class="col-sm-4">Duration:</h5>
+						<h5 class="col-sm-3" id="duration"></h5>
+
+						<h5 class="col-sm-3">Roughness:</h5>
+						<h5 class="col-sm-2" id="roughness"></h5>
+						</div>
+						<div class="col-sm-12">
+						<h5 class="col-sm-4">Energy:</h5>
+						<h5 class="col-sm-3" id="energy"></h5>
+
+						<h5 class="col-sm-3">Valence:</h5>
+						<h5 class="col-sm-2" id="valence"></h5>
+						</div>
+						<div class="col-sm-12">
+						<h5 class="col-sm-4">Tempo:</h5>
+						<h5 class="col-sm-3" id="tempo"></h5>
+
+						<h5 class="col-sm-3">Arousal:</h5>
+						<h5 class="col-sm-2" id="arousal"></h5>
+						</div>
+						<div class="col-sm-12">
+						<h5 class="col-sm-4">Emotions Tags:</h5>
+						<p><h5 class="col-sm-8" id="emotionTags" style="word-wrap:break-word; -webkit-hyphens: auto; -moz-hyphens: auto; -ms-hyphens: auto; hyphens: auto;"></h5></p>
+						</div>
+						<div class="col-sm-12">
+						<h5 class="col-sm-4">Metaphors Tags:</h5>
+						<h5 class="col-sm-8" id="metaphorTags"></h5>
+						</div>
+						<div class="col-sm-12">
+						<h5 class="col-sm-4">Usage examples:</h5>
+						<h5 class="col-sm-8" id="usageExampleTags"></h5>
+						</div>
+					</div>
+	           </div>
+	           <div class="modal-footer">
+	               <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+	       	   </div>
+	 		</div>
+	 	</div>
+	</div>
+
+    <script src="jquery-1.11.3.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="d3/d3.min.js"></script>
+	<script src="d3/crossfilter.min.js"></script>
+	<script src="buzz/buzz.js"></script>
+	<script src="d3/d3.layout.cloud.js"></script>
+	<script src="d3/d3.slider.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/autocomplete.js"></script>
+
+    <script>
+
+	$(window).load(function() {
+  		initialize();//in data.js
+	});//window load
+
+ 	var viewWidth = $(window).innerWidth()/2; //all view sizes depends on placeholder width
+ 	//var viewHeight = viewWidth*(0.75);
+ 	var viewHeight =  $(window).innerHeight()*(0.55);
+
+
+   	$(".placeholder").css("height", viewHeight);
+   	//disable scroll
+   	$('body').addClass('noscroll');
+
+    </script>
+
+    <script src="js/physical.js"></script>
+    <script src="js/emotion.js"></script>
+	<script src="js/mixedview.js"></script>
+    <script src="js/data.js"></script>
+
+</body>
+</html>
